@@ -1,0 +1,38 @@
+import processing.serial.*;
+
+Serial myPort; // Create object from Serial class
+
+float sensorData;
+float distance;
+
+
+void setup() {
+
+  String portName = Serial.list()[0];
+  //change the 0 to a 1 or 2 etc. to match your port
+  myPort = new Serial(this, portName, 9600);
+
+  size(500, 500); //create a window to draw in
+  background(0); //set the background to black
+  noStroke();
+
+  rectMode(CENTER); // so the rect renders from its middle instead of its top left corner
+
+}
+
+void serialEvent (Serial myPort) {
+
+  distance = myPort.read(); // get the sensor data
+  println(distance); // print it so we can see it
+  
+}
+
+void draw() {
+
+  // map the sensor data from its range to range between 0 and 255
+  //float colR = map(sensorData, 50, 300, 0, 255);
+
+  fill(100, 100, 100);
+  rect(100, 100, distance, distance);
+  
+}
